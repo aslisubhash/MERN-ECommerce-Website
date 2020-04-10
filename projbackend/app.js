@@ -8,6 +8,15 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 
+/*
+
+git add .
+
+$ git commit -m "Add existing file"
+
+$ git push origin
+*/
+
 //DB Connections
 mongoose
   .connect(process.env.DATABASE, {
