@@ -29,7 +29,7 @@ app.use(cookieParser());
 //myroutes
 app.use("/api", authRoutes);
 
-//start server
+//start servers
 
 app.listen(port, () => {
   console.log(`app is running at http://localhost:${port} ...`);
