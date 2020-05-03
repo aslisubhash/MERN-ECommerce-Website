@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-//https://www.npmjs.com/package/uuid#create-version-1-timestamp-uuids
-import { v1 as uuidv1 } from "uuid";
-var Schema = mongoose.Schema;
+const uuidv1 = require("uuid/v1");
 
-var userSchema = new Schema(
+var userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -47,7 +45,7 @@ var userSchema = new Schema(
 
 userSchema
   .virtual("password")
-  .set(function (plainpassword) {
+  .set(function (password) {
     this._password = password;
 
     this.salt = uuidv1();
@@ -57,17 +55,17 @@ userSchema
     return this._password;
   });
 
-userSchema.method = {
+userSchema.methods = {
   authenticate: function (plainpassword) {
     return this.securePassword(plainpassword) === this.encry_password;
   },
   securePassword: function (plainpassword) {
-    if (!password) return "";
+    if (!plainpassword) return "";
     try {
       //direcly from https://nodejs.org/api/crypto.html#crypto_determining_if_crypto_support_is_unavailable
       return crypto
-        .createHmac("sha256", secret)
-        .update("I love cupcakes")
+        .createHmac("sha256", this.salt)
+        .update(plainpassword)
         .digest("hex");
     } catch (err) {
       return "";

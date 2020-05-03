@@ -12,9 +12,9 @@ const authRoutes = require("./routes/auth");
 
 git add .
 
-$ git commit -m "Add existing file"
+git commit -m "Add existing file"
 
-$ git push origin
+git push origin
 */
 
 //DB Connections
